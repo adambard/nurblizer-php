@@ -1,15 +1,14 @@
 <?php
 
-$nouns = file("nouns.txt", FILE_IGNORE_NEW_LINES);
-
 function nurble($text){
+    $nouns = file("nouns.txt", FILE_IGNORE_NEW_LINES);
     $text = strtoupper($text);
     $words = preg_split(
         '/\w/',
         preg_replace('/[^a-z ]/', '', strtolower($text)));
 
     foreach($words as $word){
-        if(in_array($word, $nouns)){
+        if(!in_array($word, $nouns)){
             $pattern = '/(\b)' . $word . '(\b)/i';
             $replacement = '\1<span class="nurble">nurble</span>\2';
             $text = preg_replace($pattern, $replacement, $text);
